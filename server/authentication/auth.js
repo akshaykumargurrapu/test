@@ -10,5 +10,3 @@ function AuthenticationToken(res, res, next) {
     })
 
 }
-
-export default AuthenticationToken

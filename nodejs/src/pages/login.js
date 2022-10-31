@@ -25,7 +25,7 @@ function Login() {
     if (data.token) {
       alert("Login Sucessful")
       localStorage.setItem("qwert", JSON.stringify(data))
-      // window.location.href = "/dashboard"
+      window.location.href = "/dashboard"
 
     }
     else {

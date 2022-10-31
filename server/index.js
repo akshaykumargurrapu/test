@@ -4,8 +4,10 @@ const app = express()
 const cors = require('cors')
 const mongoose = require('mongoose')
 const User = require('./models/user')
+const ProfessionalData = require('./models/professional')
 const jwt = require('jsonwebtoken')
 const bcrypt = require('bcrypt')
+const auth = require('./authentication/auth')
 
 app.use(cors())
 app.use(express.json())
@@ -20,6 +22,12 @@ app.post("/api/register", async (req, res) => {
             name: req.body.name,
             email: req.body.email,
             password: hashedpassword
+        })
+        await ProfessionalData.create({
+            email : req.body.email,
+            hobbies : req.body.hobbies,
+            weight : req.body.weight,
+            height : req.body.height
         })
         res.json({ status: 'ok' })
     } catch (error) {
@@ -49,6 +57,30 @@ app.post("/api/login", async (req, res) => {
     else {
         return res.json({ status: "error", user: false })
     }
+
+})
+
+
+app.post("/api/userdata", async (req, res)=>{
+    console.log(req.body.email)
+    try {
+        const user = await ProfessionalData.findOneAndUpdate({
+            email: req.body.email},{
+            email: req.body.email,
+            hobbies : req.body.hobbies,
+            weight : req.body.weight,
+            height : req.body.height
+        },
+        { new: true } 
+        );
+    } catch (error) {
+        console.log(error )
+        if (error)
+        return res.json({status : "ok"})
+    
+        
+    }
+    return res.json({status : "error"})
 
 })
 
