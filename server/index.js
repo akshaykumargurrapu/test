@@ -10,6 +10,7 @@ const jwt = require('jsonwebtoken')
 const bcrypt = require('bcrypt')
 const auth = require('./authentication/auth')
 
+
 app.use(cors())
 app.use(express.json())
 app.use(express.urlencoded({extended:true}))
@@ -74,10 +75,11 @@ app.post("/api/login", async (req, res) => {
 })
 
 
-app.post("/api/professionaldata", async (req, res)=>{
+app.post("/api/professionaldata", AuthenticationToken, async (req, res)=>{
     console.log(req.body.emails)
+    if(req.user){
     try {
-        const user = await ProfessionalData.findOneAndUpdate({
+        await ProfessionalData.findOneAndUpdate({
             email: req.body.email},{
             linkedin : req.body.linkedin,
             company : req.body.company,
@@ -91,13 +93,15 @@ app.post("/api/professionaldata", async (req, res)=>{
         if (error)
         return res.json({status : "error"})
     }
-    return res.json({status : "ok"})
+    return res.json({status : "ok"})}
+    return res.json({status : "error"})
 
 })
-app.post("/api/personadata", async (req, res)=>{
+app.post("/api/personadata", AuthenticationToken, async (req, res)=>{
     console.log(req.body.email)
-    try {
-        const user = await PersonalData.findOneAndUpdate({
+    if(req.user){
+        try {
+        await PersonalData.findOneAndUpdate({
             email: req.body.email},{
             hobbies : req.body.hobbies,
             tShirt  : req.body.tShirt,
@@ -111,7 +115,8 @@ app.post("/api/personadata", async (req, res)=>{
         if (error)
         return res.json({status : "error"})
     }
-    return res.json({status : "ok"})
+    return res.json({status : "ok"})}
+    return res.json({status : "error"})
 
 })
 
@@ -120,6 +125,38 @@ app.post("/api/personadata", async (req, res)=>{
 //     res.send("asdsadf")
 // })
 
+
+
+function AuthenticationToken(req, res, next) {
+    const token = req.body.token
+    console.log(token)
+
+    if (token === null) {
+        console.log("12qeq")
+        return res.sendStatus(403)}
+
+    jwt.verify(token, process.env.Access_Token, (err, user) => {
+        if (err) {
+            console.log("wewqeq")
+            return res.sendStatus(401)}
+        else
+        console.log(err)
+        req.user = user
+        next()
+    })
+
+}
+
+
+app.post("/api/personaldatafetch", async (req, res) => {
+    console.log(req.body)
+    const user = await PersonalData.findOne({
+        email: req.body.email,
+    })
+    if (user) return res.json({status : "ok", user})
+    return res.json({status: "err"})
+}
+)
 
 app.listen(6969, () => {
     console.log("server started")

@@ -20,9 +20,11 @@ const Professional = () => {
   
   } 
 
-  const items = JSON.parse(localStorage.getItem('qwert'))
-  const email = items.email
+  
   async function professional_data(e) {
+    const items = JSON.parse(localStorage.getItem('qwert'))
+  const email = items.email
+  const token = items.token
     e.preventDefault()
 
     const response = await fetch('http://localhost:6969/api/professionaldata', {
@@ -31,6 +33,7 @@ const Professional = () => {
             'Content-Type': 'application/json'
         },
         body: JSON.stringify({
+          token,
             email,
             linkedin,
             company,

@@ -24,9 +24,11 @@ const Personal = () => {
   //   console.log(weight);
   // },[hobbies])
 
-  const items = JSON.parse(localStorage.getItem('qwert'))
-  const email = items.email
+  
   async function personal_data(e){
+    const items = JSON.parse(localStorage.getItem('qwert'))
+  const email = items.email
+  const token = items.token
     e.preventDefault()
 
     const response = await fetch('http://localhost:6969/api/personadata', {
@@ -35,6 +37,7 @@ const Personal = () => {
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({
+          token,
             email, 
             hobbies,
             tShirt,
