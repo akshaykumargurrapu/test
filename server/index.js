@@ -5,6 +5,7 @@ const cors = require('cors')
 const mongoose = require('mongoose')
 const User = require('./models/user')
 const ProfessionalData = require('./models/professional')
+const PersonalData = require('./models/personal_model')
 const jwt = require('jsonwebtoken')
 const bcrypt = require('bcrypt')
 const auth = require('./authentication/auth')
@@ -19,6 +20,7 @@ app.post("/api/register", async (req, res) => {
     try {
         const salt = await bcrypt.genSalt()
         const hashedpassword = await bcrypt.hash(req.body.password, salt)
+        console.log(req.body.hobbies)
         await User.create({
             name: req.body.name,
             email: req.body.email,
@@ -26,7 +28,15 @@ app.post("/api/register", async (req, res) => {
         })
         await ProfessionalData.create({
             email : req.body.email,
+            linkedin : req.body.linkedin,
+            company : req.body.company,
+            skills : req.body.skills,
+            work : req.body.work
+        })
+        await PersonalData.create({
+            email : req.body.email,
             hobbies : req.body.hobbies,
+            tShirt  : req.body.tShirt,
             weight : req.body.weight,
             height : req.body.height
         })
@@ -64,12 +74,33 @@ app.post("/api/login", async (req, res) => {
 })
 
 
-app.post("/api/userdata", async (req, res)=>{
+app.post("/api/professionaldata", async (req, res)=>{
     console.log(req.body.emails)
     try {
         const user = await ProfessionalData.findOneAndUpdate({
-            email: req.body.emails},{
+            email: req.body.email},{
+            linkedin : req.body.linkedin,
+            company : req.body.company,
+            skills : req.body.skills,
+            work : req.body.work
+        },
+        { new: true } 
+        );
+    } catch (error) {
+        console.log(error )
+        if (error)
+        return res.json({status : "error"})
+    }
+    return res.json({status : "ok"})
+
+})
+app.post("/api/personadata", async (req, res)=>{
+    console.log(req.body.email)
+    try {
+        const user = await PersonalData.findOneAndUpdate({
+            email: req.body.email},{
             hobbies : req.body.hobbies,
+            tShirt  : req.body.tShirt,
             weight : req.body.weight,
             height : req.body.height
         },
@@ -79,10 +110,8 @@ app.post("/api/userdata", async (req, res)=>{
         console.log(error )
         if (error)
         return res.json({status : "error"})
-    
-        
     }
-    return res.json({status : "error"})
+    return res.json({status : "ok"})
 
 })
 

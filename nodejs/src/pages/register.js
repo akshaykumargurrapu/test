@@ -5,9 +5,14 @@ function Register() {
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
-  const [hobbies, setHobbies] = useState('') 
-  const [weight, setWeight] = useState('')
-  const [height, setHeight] = useState('')
+  const [hobbies,setHobbies] = useState([]);
+  const [tShirt, settShirt] = useState('');
+  const [height,setHeight] = useState('');
+  const [weight,setWeight] = useState('');
+  const [linkedin, setLinkedin] = useState('')
+  const [company, setCompany] = useState('')
+  const [skills, setSkills] = useState([])
+  const [work, setWork] = useState([])
 
 
   async function registerUser(e) {
@@ -22,8 +27,13 @@ function Register() {
         email,
         password,
         hobbies,
+        tShirt,
         weight,
-        height
+        height,
+        linkedin,
+        company,
+        skills,
+        work
       }),
     })
     const data = await response.json()

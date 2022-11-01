@@ -2,10 +2,10 @@ const mongoose = require("mongoose")
 const ProfessionalData = new mongoose.Schema(
     {
         email: { type: String, required: true, unique: true },
-        hobbies:{type: String},
-        weight: { type: String },
-        height : {type: String}
-
+        linkedin : {type : String},
+        company : {type : String},
+        skills : {type : Array},
+        work : {type : Array}
     },
     { collection: "Professional-Data" }
 
