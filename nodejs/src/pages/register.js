@@ -5,6 +5,9 @@ function Register() {
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const [hobbies, setHobbies] = useState('') 
+  const [weight, setWeight] = useState('')
+  const [height, setHeight] = useState('')
 
 
   async function registerUser(e) {
@@ -17,7 +20,10 @@ function Register() {
       body: JSON.stringify({
         name,
         email,
-        password
+        password,
+        hobbies,
+        weight,
+        height
       }),
     })
     const data = await response.json()

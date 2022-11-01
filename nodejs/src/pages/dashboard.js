@@ -12,7 +12,8 @@ function Dashboard(){
 
 
     async function professional_data(e){
-        e.perventdefault()
+        e.preventDefault()
+
         const response = await fetch('http://localhost:6969/api/userdata', {
             method: 'POST',
             headers: {

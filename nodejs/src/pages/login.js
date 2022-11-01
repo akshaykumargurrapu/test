@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-
+import axios from 'axios'
 
 function Login() {
   const [email, setEmail] = useState('')
@@ -11,6 +11,7 @@ function Login() {
     const response = await fetch('http://localhost:6969/api/login', {
       method: 'POST',
       headers: {
+        'Accept': 'application/json',
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
@@ -18,6 +19,7 @@ function Login() {
         password
       }),
     })
+    // const response=await axios.post('http://localhost:6969/api/login',{email,password})
     const data = await response.json()
     console.log(data)
     console.log(response)

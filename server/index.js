@@ -11,6 +11,7 @@ const auth = require('./authentication/auth')
 
 app.use(cors())
 app.use(express.json())
+app.use(express.urlencoded({extended:true}))
 mongoose.connect('mongodb+srv://nodejs:nodejs@cluster0.zoxgxam.mongodb.net/test')
 
 app.post("/api/register", async (req, res) => {
@@ -38,10 +39,12 @@ app.post("/api/register", async (req, res) => {
 
 
 app.post("/api/login", async (req, res) => {
+    console.log(req.body)
     const user = await User.findOne({
         email: req.body.email,
     })
-    if (user == null) res.json({ status: "user not found" })
+    console.log(user)
+    if (user === null) return res.json({ status: "user not found" })
     else {
         const passwordcompared = await bcrypt.compare(req.body.password, user.password)
         if (!passwordcompared) return res.json({ status: "Incorrect Credentials" })
@@ -62,11 +65,10 @@ app.post("/api/login", async (req, res) => {
 
 
 app.post("/api/userdata", async (req, res)=>{
-    console.log(req.body.email)
+    console.log(req.body.emails)
     try {
         const user = await ProfessionalData.findOneAndUpdate({
-            email: req.body.email},{
-            email: req.body.email,
+            email: req.body.emails},{
             hobbies : req.body.hobbies,
             weight : req.body.weight,
             height : req.body.height
@@ -76,7 +78,7 @@ app.post("/api/userdata", async (req, res)=>{
     } catch (error) {
         console.log(error )
         if (error)
-        return res.json({status : "ok"})
+        return res.json({status : "error"})
     
         
     }
