@@ -1,16 +1,15 @@
-import React, { useState,useEffect } from 'react'
+import React, { useState,useEffect, useContext } from 'react'
 import Home from './Home'
+import { dataContext } from '../nodeContext';
 
 const Professional = () => {
 
   const [data,setData] = useState('');
   const [data1,setData1] = useState('');
-  const [linkedin, setLinkedin] = useState('')
-  const [company, setCompany] = useState('')
-  const [skills, setSkills] = useState([])
-  const [work, setWork] = useState([])
+  const [linkedin, setLinkedin, company, setCompany, 
+    skills, setSkills, work, setWork] = useContext(dataContext)
 
-  const changeHandler = (e)=>{
+  const changeHandler = ()=>{
     setSkills( [...skills , data ]);
     // console.log(hobbies)
   

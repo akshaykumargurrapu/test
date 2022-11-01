@@ -1,17 +1,15 @@
-import React,{useState,useEffect} from 'react'
+import React,{useContext, useState} from 'react'
 import Home from './Home'
 import '../App.css'
-import '../../node_modules/bootstrap/dist/css/bootstrap.min.css';
-
+import '../../../node_modules/bootstrap/dist/css/bootstrap.min.css';
+import { dataContext } from '../nodeContext';
 
 
 const Personal = () => {
   const [food, setFood] = useState('')
 
-  const [hobbies,setHobbies] = useState([]);
-  const [tShirt, settShirt] = useState('');
-  const [height,setHeight] = useState('');
-  const [weight,setWeight] = useState('');
+  const [hobbies,setHobbies, tShirt, settShirt, 
+    height,setHeight, weight,setWeight] = useContext(dataContext);
 
 
   const changeHandler = (e)=>{
@@ -19,12 +17,12 @@ const Personal = () => {
     // console.log(hobbies)
   
   } 
-  useEffect(()=>{
-    console.log(hobbies)
-    console.log(tShirt);
-    console.log(height);
-    console.log(weight);
-  },[hobbies])
+  // useEffect(()=>{
+  //   console.log(hobbies)
+  //   console.log(tShirt);
+  //   console.log(height);
+  //   console.log(weight);
+  // },[hobbies])
 
   const items = JSON.parse(localStorage.getItem('qwert'))
   const email = items.email

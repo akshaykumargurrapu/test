@@ -6,11 +6,12 @@ import Home from "./pages/Home";
 import Personal from "./pages/Personal";
 import Professional from "./pages/Professional";
 import {BrowserRouter, Link, Routes ,Route} from "react-router-dom";
-
+import DataProvider from "./nodeContext"
 
 function App(){
     return (
     <>
+    <DataProvider>
         <BrowserRouter>
             <Link to="/register">Registration</Link>
             <Link to="/login">Login</Link>
@@ -24,6 +25,7 @@ function App(){
                 
             </Routes>
         </BrowserRouter>
+        </DataProvider>
     </>
     );
 }

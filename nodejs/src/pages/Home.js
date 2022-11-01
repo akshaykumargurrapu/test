@@ -10,6 +10,10 @@ const Home = () => {
         <ul className='nav'>
             <li className='nav-item'><a className="nav-link "><Link to='/personal'>Personal</Link></a></li>
             <li className='nav-item'><a className="nav-link "><Link to='/professional'>Professional</Link></a></li>
+            <button className='btn btn-danger' onClick={(e) =>{
+              localStorage.clear()
+              window.location.href = '/login'
+            }}>logout<li className='nav-item'><a className="nav-link "></a></li></button>
         </ul>
         
       </div>

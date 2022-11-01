@@ -1,19 +1,9 @@
-import React, { useState } from 'react';
+import React, { useContext  } from 'react';
+import { dataContext } from '../nodeContext';
 
 function Register() {
-
-  const [name, setName] = useState('')
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
-  const [hobbies,setHobbies] = useState([]);
-  const [tShirt, settShirt] = useState('');
-  const [height,setHeight] = useState('');
-  const [weight,setWeight] = useState('');
-  const [linkedin, setLinkedin] = useState('')
-  const [company, setCompany] = useState('')
-  const [skills, setSkills] = useState([])
-  const [work, setWork] = useState([])
-
+  const [name, setName, email, setEmail, password, setPassword, hobbies,
+     tShirt, height, weight, linkedin, company, skills, work] = useContext(dataContext)
 
   async function registerUser(e) {
     e.preventDefault()

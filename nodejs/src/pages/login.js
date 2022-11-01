@@ -1,11 +1,8 @@
-import React, { useState } from 'react';
-import axios from 'axios'
+import React, { useContext, useState } from 'react';
+import { dataContext } from '../nodeContext';
 
 function Login() {
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
-
-
+  const [email, setEmail, password, setPassword] = useContext(dataContext)
   async function loginUser(e) {
     e.preventDefault()
     const response = await fetch('http://localhost:6969/api/login', {
