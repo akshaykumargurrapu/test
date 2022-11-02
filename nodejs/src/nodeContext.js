@@ -7,9 +7,9 @@ const DataProvider = ({children})=>{
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [hobbies,setHobbies] = useState([]);
-    const [tShirt, settShirt] = useState('');
-    const [height,setHeight] = useState('');
-    const [weight,setWeight] = useState('');
+    const [tShirt, settShirt] = useState(0);
+    const [height,setHeight] = useState(0);
+    const [weight,setWeight] = useState(0);
     const [linkedin, setLinkedin] = useState('')
     const [company, setCompany] = useState('')
     const [skills, setSkills] = useState([])

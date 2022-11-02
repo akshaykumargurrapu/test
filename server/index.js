@@ -148,7 +148,18 @@ function AuthenticationToken(req, res, next) {
 }
 
 
-app.post("/api/personaldatafetch", async (req, res) => {
+app.post("/api/professionaldatafetch", AuthenticationToken, async (req, res) => {
+    console.log(req.body)
+    const user = await ProfessionalData.findOne({
+        email: req.body.email,
+    })
+    if (user) return res.json({status : "ok", user})
+    return res.json({status: "err"})
+}
+)
+
+
+app.post("/api/personaldatafetch", AuthenticationToken, async (req, res) => {
     console.log(req.body)
     const user = await PersonalData.findOne({
         email: req.body.email,
@@ -157,6 +168,7 @@ app.post("/api/personaldatafetch", async (req, res) => {
     return res.json({status: "err"})
 }
 )
+
 
 app.listen(6969, () => {
     console.log("server started")

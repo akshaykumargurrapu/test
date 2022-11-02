@@ -1,6 +1,6 @@
 import React, { useContext  } from 'react';
 import { dataContext } from '../nodeContext';
-
+import {Link} from 'react-router-dom'
 function Register() {
   const [name, setName, email, setEmail, password, setPassword, hobbies,
      tShirt, height, weight, linkedin, company, skills, work] = useContext(dataContext)
@@ -35,24 +35,27 @@ function Register() {
 
   return (
     <div>
+      <div className='form-container'>
       <h1>Registration</h1>
       <form onSubmit={registerUser}>
-        <input type="text" placeholder="Firstname"
+        <input type="text" placeholder="Firstname" className='form-control'
           onChange={(e) => setName(e.target.value)} value={name}>
         </input>
         <br></br>
-        <input type="email" placeholder="email"
+        <input type="email" placeholder="email" className='form-control'
           onChange={(e) => setEmail(e.target.value)} value={email}>
         </input>
         <br></br>
-        <input type="password" placeholder="password"
+        <input type="password" placeholder="password" className='form-control'
           onChange={(e) => setPassword(e.target.value)} value={password}>
         </input>
-        <br></br>
-        <input type="submit" placeholder="Register">
+        <div className='reg1'>
+        <Link to='/'><a >Login here</a></Link>
+        </div>
+        <input type="submit"  className='btn btn-primary' value="Register" placeholder="Register">
         </input>
       </form>
-
+      </div>
     </div>
   );
 }

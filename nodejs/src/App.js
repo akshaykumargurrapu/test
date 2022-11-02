@@ -12,12 +12,13 @@ function App(){
     return (
     <>
     <DataProvider>
+        {/* <Login></Login> */}
         <BrowserRouter>
-            <Link to="/register">Registration</Link>
-            <Link to="/login">Login</Link>
+            {/* <Link to="/register">Registration</Link>
+            <Link to="/login">Login</Link> */}
             <Routes>
                 <Route path="/register" element={<Register/>}></Route>
-                <Route path="/login" element={<Login/>}></Route>
+                <Route path="/" element={<Login/>}></Route>
                 <Route path ="/dashboard" element={<Dashboard/>}></Route>
                 <Route path="/Home" element={<Home/>}></Route>
                 <Route path="/personal" element={<Personal/>}></Route>

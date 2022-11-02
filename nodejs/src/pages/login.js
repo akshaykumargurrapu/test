@@ -1,6 +1,6 @@
 import React, { useContext, useState } from 'react';
 import { dataContext } from '../nodeContext';
-
+import {Link} from 'react-router-dom';
 function Login() {
   const [email, setEmail, password, setPassword] = useContext(dataContext)
   async function loginUser(e) {
@@ -35,20 +35,23 @@ function Login() {
 
   return (
     <div>
+      <div className="form-container">
       <h1>Login</h1>
       <form onSubmit={loginUser}>
-        <input type="email" placeholder="email"
+        <input type="email" placeholder="email" className='form-control'
           onChange={(e) => setEmail(e.target.value)} value={email}>
         </input>
         <br></br>
-        <input type="password" placeholder="password"
+        <input type="password" placeholder="password" className='form-control'
           onChange={(e) => setPassword(e.target.value)} value={password}>
         </input>
-        <br></br>
-        <input type="submit" placeholder="Login">
+        <div className='reg'>
+        <Link to='/register'><a >Register here</a> </Link>
+        </div>
+        <input type="submit" className='btn btn-primary' value="Login" placeholder="Sign In">
         </input>
       </form>
-
+      </div>
     </div>
   );
 }

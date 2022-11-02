@@ -44,3 +44,50 @@ table tr{
 .btnn{
   padding-top: 20px;
 }
+
+.form-container{
+  border-radius: 20px;
+  color: white;
+  background-color: black;
+  padding: 60px;
+  height: 500px;
+  text-align: center;
+  width: 400px;
+  margin-top: 5%;
+  margin-left: 40%;
+}
+.form-container h1{
+  padding-bottom: 50px;
+  font-size: 50px;
+}
+
+.sub{
+  padding-top: 10%;
+}
+
+.reg{
+  font-size: 13px;
+  margin-top: 40%;
+  display: flex;
+}
+.reg1{
+  font-size: 13px;
+  display: flex;
+  margin-top: 27%;
+}
+.reg1 a{
+  color: aqua;
+  text-decoration: none;
+}
+.reg1 a:hover{
+  color: aquamarine;
+  text-decoration: dashed;
+}
+.reg a{
+  color: aqua;
+  text-decoration: none;
+}
+.reg a:hover{
+  color: aquamarine;
+  text-decoration: dashed;
+}
