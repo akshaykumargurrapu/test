@@ -1,6 +1,8 @@
 import React, { useEffect,useState } from 'react'
 import { Link } from 'react-router-dom'
 import '../App.css'
+import Personal from './Personal'
+import Professional from './Professional'
 
 
 const Home = () => {
@@ -37,7 +39,7 @@ const Home = () => {
     const email = items.email
     const token = items.token
 
-    // e.preventDefault()
+    // e.preventDefault();
 
     const response = await fetch('http://localhost:6969/api/professionaldatafetch', {
       method: 'POST',
@@ -69,22 +71,83 @@ const Home = () => {
       <div className='navbar'>
         <h1>Preference</h1>
         <ul className='nav'>
+          <li className='nav-item'><a className="nav-link "><Link to='/home'>Home</Link></a></li>
           <li className='nav-item'><a className="nav-link "><Link to='/personal'>Personal</Link></a></li>
           <li className='nav-item'><a className="nav-link "><Link to='/professional'>Professional</Link></a></li>
-          <li className='nav-item'><a className="nav-link ">Hi,{JSON.parse(localStorage.getItem('qwert')).name}</a></li> &nbsp;&nbsp;&nbsp;&nbsp;
-          <button className='btn btn-danger' onClick={(e) => {
+          <li className='nav-item'><a className="nav-link ">Hi,{JSON.parse(localStorage.getItem('qwert')).name}</a></li>
+          <li className='nav-item'><button className='btn btn-danger' onClick={(e) => {
             localStorage.clear()
             window.location.href = '/'
-          }}>logout<li className='nav-item'><a className="nav-link "></a></li></button>
+          }}>Logout</button></li>
+          
         </ul>
 
       </div>
-      <div>
-        <h1>sadgjhg</h1>
+      <div className='datadiv'>
+        {/* <h1>sadgjhg</h1>
         {
           userper.weight
         }
-        {  userpro.linkedin}
+        {  userpro.linkedin} */}
+        <span>
+          <div className='personal-div'>
+            <h1>Personal Details</h1>
+            <br/>
+            <table className='table table-bordered'>
+              <tbody>
+                <tr>
+                  <th scope='col'>Food Habits :</th>
+                  <th scope='col'>{userper.hobbies}</th>
+                </tr>
+                <tr>
+                  <th scope='col'>TShirt Size :</th>
+                  <th scope='col'>{userper.tShirt}</th>
+                </tr>
+                <tr>
+                  <th scope='col'>Height :</th>
+                  <th scope='col'>{userper.height} CM</th>
+                </tr>
+                <tr>
+                  <th scope='col'>Weight :</th>
+                  <th scope='col'>{userper.weight} KG</th>
+                </tr>
+                <br></br>
+                <button type='submit' className='btn btn-danger' onClick={(e) => {
+            window.location.href = '/personal'
+          }}>Edit</button>
+              </tbody>
+            </table>
+           
+          </div>
+          <div className='professional-div'>
+            <h1>Professional Details</h1>
+            <br/>
+          <table className='table table-bordered'>
+              <tbody>
+                <tr>
+                  <th scope='col'>LinkedIn URL :</th>
+                  <th scope='col'>{userpro.linkedin}</th>
+                </tr>
+                <tr>
+                  <th scope='col'>Company :</th>
+                  <th scope='col'>{userpro.company}</th>
+                </tr>
+                <tr> 
+                  <th scope='col'>Work Experience :</th>
+                  <th scope='col'>{userpro.work}</th>
+                </tr>
+                <tr>
+                  <th scope='col'>Technical Skills :</th>
+                  <th scope='col'>{userpro.skills}</th>
+                </tr>
+                <br></br>
+                <button type='submit' className='btn btn-danger' onClick={(e) => {
+            window.location.href = '/professional'
+          }}>Edit</button>
+              </tbody>
+            </table>
+          </div>
+        </span>
       </div>
     </div>
   )

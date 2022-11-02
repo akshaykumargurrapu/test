@@ -1,6 +1,7 @@
 import React, { useState,useEffect, useContext } from 'react'
 import Home from './Home'
 import { dataContext } from '../nodeContext';
+import {Link} from 'react-router-dom'
 
 const Professional = () => {
 
@@ -50,7 +51,20 @@ const Professional = () => {
 }
   return (
     <div className='main'>
-      <Home/>
+      <div className='navbar'>
+        <h1>Preference</h1>
+        <ul className='nav'>
+          <li className='nav-item'><a className="nav-link "><Link to='/home'>Home</Link></a></li>
+          <li className='nav-item'><a className="nav-link "><Link to='/personal'>Personal</Link></a></li>
+          <li className='nav-item'><a className="nav-link "><Link to='/professional'>Professional</Link></a></li>
+          <li className='nav-item'><a className="nav-link ">Hi,{JSON.parse(localStorage.getItem('qwert')).name}</a></li> &nbsp;&nbsp;&nbsp;&nbsp;
+          <li className='nav-item'><button className='btn btn-danger' onClick={(e) => {
+            localStorage.clear()
+            window.location.href = '/'
+          }}>Logout</button></li>
+        </ul>
+
+      </div>
       <div className='data'>
         <h1>Professional Preference</h1>
         <form onSubmit={professional_data}>

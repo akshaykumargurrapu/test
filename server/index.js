@@ -14,7 +14,7 @@ const auth = require('./authentication/auth')
 app.use(cors())
 app.use(express.json())
 app.use(express.urlencoded({extended:true}))
-mongoose.connect('mongodb+srv://nodejs:nodejs@cluster0.zoxgxam.mongodb.net/test')
+mongoose.connect('mongodb+srv://nodejs:nodejs@cluster0.zoxgxam.mongodb.net/test',{ignoreUndefined:true})
 
 app.post("/api/register", async (req, res) => {
     console.log(req.body)
@@ -164,6 +164,17 @@ app.post("/api/personaldatafetch", AuthenticationToken, async (req, res) => {
     const user = await PersonalData.findOne({
         email: req.body.email,
     })
+    if (user) return res.json({status : "ok", user})
+    return res.json({status: "err"})
+}
+)
+app.post("/api/finduserpersonadata", async (req, res) => {
+    console.log(req.body)
+    const user = await PersonalData.find({
+        height : req.body.height,
+        weight : req.body.weight
+    })
+    console.log(user)
     if (user) return res.json({status : "ok", user})
     return res.json({status: "err"})
 }

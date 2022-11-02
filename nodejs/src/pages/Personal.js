@@ -3,6 +3,7 @@ import Home from './Home'
 import '../App.css'
 import '../../../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import { dataContext } from '../nodeContext';
+import { Link } from 'react-router-dom'
 
 
 const Personal = () => {
@@ -26,10 +27,11 @@ const Personal = () => {
 
 
   async function personal_data(e) {
+    console.log('hello')
     const items = JSON.parse(localStorage.getItem('qwert'))
     const email = items.email
     const token = items.token
-    // e.preventDefault()
+    e.preventDefault()
 
     const response = await fetch('http://localhost:6969/api/personadata', {
       method: 'POST',
@@ -51,11 +53,25 @@ const Personal = () => {
       alert("Updated Data")
     else
       alert("Error")
+    window.location.href = '/Home'
   }
   return (
 
     <div className='main'>
-      <Home />
+      <div className='navbar'>
+        <h1>Preference</h1>
+        <ul className='nav'>
+          <li className='nav-item'><a className="nav-link "><Link to='/home'>Home</Link></a></li>
+          <li className='nav-item'><a className="nav-link "><Link to='/personal'>Personal</Link></a></li>
+          <li className='nav-item'><a className="nav-link "><Link to='/professional'>Professional</Link></a></li>
+          <li className='nav-item'><a className="nav-link ">Hi,{JSON.parse(localStorage.getItem('qwert')).name}</a></li> &nbsp;&nbsp;&nbsp;&nbsp;
+          <li className='nav-item'><button className='btn btn-danger' onClick={(e) => {
+            localStorage.clear()
+            window.location.href = '/'
+          }}>Logout</button></li>
+        </ul>
+
+      </div>
       <div className='data'>
         <h1>Personal Preference</h1>
         <form onSubmit={personal_data}>
