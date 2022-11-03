@@ -8,7 +8,6 @@ const ProfessionalData = require('./models/professional')
 const PersonalData = require('./models/personal_model')
 const jwt = require('jsonwebtoken')
 const bcrypt = require('bcrypt')
-const auth = require('./authentication/auth')
 
 
 app.use(cors())
@@ -130,7 +129,7 @@ function AuthenticationToken(req, res, next) {
 
     jwt.verify(token, process.env.Access_Token, (err, user) => {
         if (err) {
-            console.log("wewqeq")
+            console.log(err)
             return res.sendStatus(401)}
         else
         console.log(err)

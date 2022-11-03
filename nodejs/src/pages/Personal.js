@@ -23,20 +23,21 @@ const Personal = () => {
     const email = items.email
     const token = items.token
     e.preventDefault()
+    let body={token,
+      email,
+      hobbies,
+      tShirt,
+      weight,
+      height}
+    Object.keys(body).forEach(key =>{console.log('asd') 
+    if(body[key]===''){delete body[key]}})
 
     const response = await fetch('http://localhost:6969/api/personadata', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({
-        token,
-        email,
-        hobbies,
-        tShirt,
-        weight,
-        height
-      }),
+      body: JSON.stringify(body),
     })
     const data = await response.json()
     console.log(data)

@@ -1,6 +1,7 @@
 import {React, useState} from "react";
 import { dataContext } from '../nodeContext';
 import { useContext } from 'react';
+import {Link} from 'react-router-dom';
 const Admin =()=>{
   const [hobbies, setHobbies, tShirt, settShirt,
     height, setHeight, weight, setWeight, company, setCompany, 
@@ -47,57 +48,77 @@ setData1(data.user)
 
 
 const renderuser = data1 && data1.map(user=>{
-    console.log(user , "wssdw")
-    return(
+    
+    return(   
     <h1>{user.email}</h1>
     )
 })
 
     return(
-    <>
-    <h1>Admin login</h1>
+        <div className="main">
+        <div className='navbar'>
+        <h1>Admin Page</h1>
+        <ul className='nav'>
+          <li className='nav-item'><button className='btn btn-danger' onClick={(e) => {
+            localStorage.clear()
+            window.location.href = '/'
+          }}>Logout</button></li>
 
+        </ul>
+
+      </div>
+
+    <div className="form">
+    
     <table>
         <tr>
-            <th>
-                PersonalData
-            </th>
-            <th>
-                professionaldata
-            </th>
+            
+            
         </tr>
         <tr>
             <td>
+            <th>
+                Personal Data
+            </th>
                 <form onSubmit={finduserspersonaldata}>
-                    <input type="text" placeholder="height" value={height} onChange={(e)=>{setHeight(e.target.value)}} >
+                    <input type="text" placeholder="Height" className="form-control"  value={height} onChange={(e)=>{setHeight(e.target.value)}} >
                     </input>
-                    <input type="text" placeholder="weight" value={weight} onChange={(e)=>{setWeight(e.target.value)}} >
+                    <input type="text" placeholder="Weight" className="form-control"  value={weight} onChange={(e)=>{setWeight(e.target.value)}} >
                     </input>
-                    <input type="text" placeholder="tshirt" value={tShirt} onChange={(e)=>{settShirt(e.target.value)}} >
+                    <input type="text" placeholder="TShirt" className="form-control"  value={tShirt} onChange={(e)=>{settShirt(e.target.value)}} >
                     </input>
                     {/* <input type="text" placeholder="hobbies" value={hobbies} onChange={(e)=>{setHobbies([e.target.value])}} >
                     </input> */}
-                    <input type='submit'></input>
+                    <br></br>
+                    <input type='submit' className="btn btn-primary"></input>
                 </form>
                 
             </td>
+            
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             <td>
+            <th>
+                Professional Data
+            </th>
             <form onSubmit={findusersprofessionaldata}>
-                    <input type="text" placeholder="company" value={company} onChange={(e)=>{setCompany(e.target.value)}} >
+                    <input type="text" placeholder="Company" className="form-control"  value={company} onChange={(e)=>{setCompany(e.target.value)}} >
                     </input>
-                    <input type="text" placeholder="experience" value={work} onChange={(e)=>{setWork(e.target.value)}} >
+                    <input type="text" placeholder="Work" className="form-control"  value={work} onChange={(e)=>{setWork(e.target.value)}} >
                     </input>
-                    <input type="text" placeholder="skill" value={skills} onChange={(e)=>{setSkills(e.target.value)}} >
+                    <input type="text" placeholder="Skill" className="form-control"  value={skills} onChange={(e)=>{setSkills(e.target.value)}} >
                     </input>
-                    <input type='submit'></input>
+                    <br></br>
+                    <input type='submit' className="btn btn-primary"></input>
                 </form>
             </td>
         </tr>
+
     </table>
     {
-                    renderuser
-                }
-    </>
+                renderuser
+            }
+    </div>
+    </div>
     )
 }
 

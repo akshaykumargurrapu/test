@@ -1,7 +1,7 @@
 import React from "react";
 import Register from "./pages/register";
 import Login from "./pages/login";
-import Dashboard from "./pages/dashboard";
+
 import Home from "./pages/Home";
 import Personal from "./pages/Personal";
 import Professional from "./pages/Professional";
@@ -21,7 +21,6 @@ function App(){
             <Routes>
                 <Route path="/register" element={<Register/>}></Route>
                 <Route path="/" element={<Login/>}></Route>
-                <Route path ="/dashboard" element={<Dashboard/>}></Route>
                 <Route path="/Home" element={<Home/>}></Route>
                 <Route path="/personal" element={<Personal/>}></Route>
                 <Route path="/Professional" element={<Professional/>}></Route>

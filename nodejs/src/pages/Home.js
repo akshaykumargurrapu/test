@@ -14,10 +14,13 @@ const Home = () => {
     const items = JSON.parse(localStorage.getItem('qwert'))
     const email = items.email
     const token = items.token
+  
 
     // e.preventDefault()
 
     const response = await fetch('http://localhost:6969/api/personaldatafetch', {
+
+      
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'

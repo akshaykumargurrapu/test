@@ -27,6 +27,14 @@ const Professional = () => {
   const email = items.email
   const token = items.token
     e.preventDefault()
+    let body={token,
+      email,
+      linkedin,
+      company,
+      skills,
+      work}
+    Object.keys(body).forEach(key =>{console.log('asd') 
+    if(body[key]===''){delete body[key]}})
 
     const response = await fetch('http://localhost:6969/api/professionaldata', {
         method: 'POST',
