@@ -120,13 +120,6 @@ app.post("/api/personadata", AuthenticationToken, async (req, res)=>{
 
 })
 
-// app.get('/', (req, res)=>{
-//     console.log("sadfsfsdf")
-//     res.send("asdsadf")
-// })
-
-
-
 function AuthenticationToken(req, res, next) {
     const token = req.body.token
     console.log(token)
@@ -168,11 +161,26 @@ app.post("/api/personaldatafetch", AuthenticationToken, async (req, res) => {
     return res.json({status: "err"})
 }
 )
-app.post("/api/finduserpersonadata", async (req, res) => {
+app.post("/api/finduserpersonaldata", async (req, res) => {
     console.log(req.body)
     const user = await PersonalData.find({
         height : req.body.height,
-        weight : req.body.weight
+        weight : req.body.weight,
+        tShirt : req.body.tShirt,
+        hobbies : req.body.hobbies
+    })
+    console.log(user)
+    if (user) return res.json({status : "ok", user})
+    return res.json({status: "err"})
+}
+)
+
+app.post("/api/findusersprofessionaldata", async (req, res) => {
+    console.log(req.body)
+    const user = await ProfessionalData.find({
+        work : req.body.work,
+        skills : req.body.skills,
+        company : req.body.company
     })
     console.log(user)
     if (user) return res.json({status : "ok", user})

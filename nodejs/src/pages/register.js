@@ -30,7 +30,7 @@ function Register() {
     console.log(data)
     console.log(response)
     if (data.status === 'ok')
-      window.location.href = '/Login'
+      window.location.href = '/'
   }
 
   return (

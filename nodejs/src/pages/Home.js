@@ -1,4 +1,4 @@
-import React, { useEffect,useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import '../App.css'
 import Personal from './Personal'
@@ -7,7 +7,7 @@ import Professional from './Professional'
 
 const Home = () => {
 
-  const [userper,setUserper]=useState({})
+  const [userper, setUserper] = useState({})
   const [userpro, setUserpro] = useState({})
   // const personadata = personaldatafetch
   async function personal_data_fetching() {
@@ -54,17 +54,17 @@ const Home = () => {
     const data = await response.json()
     console.log(data)
     localStorage.setItem("professionaldata", JSON.stringify(data.user))
-    
+
     setUserpro(JSON.parse(localStorage.getItem('professionaldata')))
     // return data.user
   }
 
 
-  useEffect(()=>{
+  useEffect(() => {
     personal_data_fetching()
     professional_data_fetching()
-  },[])
-  
+  }, [])
+
 
   return (
     <div>
@@ -79,7 +79,7 @@ const Home = () => {
             localStorage.clear()
             window.location.href = '/'
           }}>Logout</button></li>
-          
+
         </ul>
 
       </div>
@@ -92,12 +92,16 @@ const Home = () => {
         <span>
           <div className='personal-div'>
             <h1>Personal Details</h1>
-            <br/>
+            <br />
             <table className='table table-bordered'>
               <tbody>
                 <tr>
                   <th scope='col'>Food Habits :</th>
-                  <th scope='col'>{userper.hobbies}</th>
+                  <th scope='col'>{userper.hobbies && userper.hobbies.map(hobbie => {
+                    return (
+                      <h5>{hobbie}</h5>
+                    )
+                  })}</th>
                 </tr>
                 <tr>
                   <th scope='col'>TShirt Size :</th>
@@ -113,16 +117,16 @@ const Home = () => {
                 </tr>
                 <br></br>
                 <button type='submit' className='btn btn-danger' onClick={(e) => {
-            window.location.href = '/personal'
-          }}>Edit</button>
+                  window.location.href = '/personal'
+                }}>Edit</button>
               </tbody>
             </table>
-           
+
           </div>
           <div className='professional-div'>
             <h1>Professional Details</h1>
-            <br/>
-          <table className='table table-bordered'>
+            <br />
+            <table className='table table-bordered'>
               <tbody>
                 <tr>
                   <th scope='col'>LinkedIn URL :</th>
@@ -132,18 +136,29 @@ const Home = () => {
                   <th scope='col'>Company :</th>
                   <th scope='col'>{userpro.company}</th>
                 </tr>
-                <tr> 
+                <tr>
                   <th scope='col'>Work Experience :</th>
-                  <th scope='col'>{userpro.work}</th>
+                  <th scope='col'>
+                  {userpro.work && userpro.work.map(work => {
+                    return (
+                      <h5>{work}</h5>
+                    )
+                  })}
+                  </th>
                 </tr>
                 <tr>
                   <th scope='col'>Technical Skills :</th>
-                  <th scope='col'>{userpro.skills}</th>
+                  <th scope='col'>{
+                  userpro.skills && userpro.skills.map(skill => {
+                    return (
+                      <h5>{skill}</h5>
+                    )
+                  })}</th>
                 </tr>
                 <br></br>
                 <button type='submit' className='btn btn-danger' onClick={(e) => {
-            window.location.href = '/professional'
-          }}>Edit</button>
+                  window.location.href = '/professional'
+                }}>Edit</button>
               </tbody>
             </table>
           </div>

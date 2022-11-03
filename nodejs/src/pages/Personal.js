@@ -15,19 +15,10 @@ const Personal = () => {
 
   const changeHandler = (e) => {
     setHobbies([...hobbies, food]);
-    // console.log(hobbies)
-
   }
-  // useEffect(()=>{
-  //   console.log(hobbies)
-  //   console.log(tShirt);
-  //   console.log(height);
-  //   console.log(weight);
-  // },[hobbies])
 
 
   async function personal_data(e) {
-    console.log('hello')
     const items = JSON.parse(localStorage.getItem('qwert'))
     const email = items.email
     const token = items.token
@@ -55,6 +46,13 @@ const Personal = () => {
       alert("Error")
     window.location.href = '/Home'
   }
+
+  const renderhobbies = hobbies && hobbies.map(hobbie =>{
+    return(
+      <h5>{hobbie}</h5>
+    )
+  })
+
   return (
 
     <div className='main'>
@@ -105,6 +103,7 @@ const Personal = () => {
                   <input type="text" class="form-control" placeholder="Enter Food Habits" value={food} onChange={(e) => setFood(e.target.value)} />
                   <button type="button" class="btn btn-primary" onClick={changeHandler}>Add</button>
                 </span>
+                {renderhobbies}
               </td>
             </tr>
           </table>

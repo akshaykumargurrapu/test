@@ -5,9 +5,7 @@ function Login() {
   const [email, setEmail, password, setPassword] = useContext(dataContext)
   async function loginUser(e) {
     e.preventDefault()
-    if(email == "admin@gmail.com" && password == 1234){
-      window.location.href = '/admin'
-    }
+    
     const response = await fetch('http://localhost:6969/api/login', {
       method: 'POST',
       headers: {
@@ -27,7 +25,11 @@ function Login() {
     if (data.token) {
       alert("Login Sucessful")
       localStorage.setItem("qwert", JSON.stringify(data))
-      window.location.href = "/Home"
+      if(data.email == "admin@gmail.com" ){
+        window.location.href = '/admin'
+      }
+      else
+        window.location.href = "/Home"
 
     }
     else {
