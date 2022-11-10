@@ -1,8 +1,9 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext } from 'react';
 import { dataContext } from '../nodeContext';
 import {Link} from 'react-router-dom';
 function Login() {
-  const [email, setEmail, password, setPassword] = useContext(dataContext)
+  const [ email, setEmail,
+    password, setPassword] = useContext(dataContext)
   async function loginUser(e) {
     e.preventDefault()
     
@@ -19,17 +20,18 @@ function Login() {
     })
     // const response=await axios.post('http://localhost:6969/api/login',{email,password})
     const data = await response.json()
-    console.log(data)
-    console.log(response)
-    console.log(data.token)
+    // console.log(data)
+    // console.log(response)
+    // console.log(data.token)
     if (data.token) {
-      alert("Login Sucessful")
       localStorage.setItem("qwert", JSON.stringify(data))
-      if(data.email == "admin@gmail.com" ){
+      if(data.email === "admin@gmail.com" ){
         window.location.href = '/admin'
       }
       else
+      {
         window.location.href = "/Home"
+      }
 
     }
     else {
@@ -44,14 +46,12 @@ function Login() {
       <h1>Login</h1>
       <form onSubmit={loginUser}>
         <input type="email" placeholder="email" className='form-control'
-          onChange={(e) => setEmail(e.target.value)} value={email}>
-        </input>
+          onChange={(e) => setEmail(e.target.value)} value={email} required/>
         <br></br>
         <input type="password" placeholder="password" className='form-control'
-          onChange={(e) => setPassword(e.target.value)} value={password}>
-        </input>
+          onChange={(e) => setPassword(e.target.value)} value={password} required/>
         <div className='reg'>
-        <Link to='/register'><a >Register here</a> </Link>
+        <Link to='/register'>Register here</Link>
         </div>
         <input type="submit" className='btn btn-primary' value="Login" placeholder="Sign In">
         </input>

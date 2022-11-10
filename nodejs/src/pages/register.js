@@ -27,9 +27,9 @@ function Register() {
       }),
     })
     const data = await response.json()
-    console.log(data)
-    console.log(response)
-    if (data.status === 'ok')
+    // console.log(data)
+    // console.log(response)
+    if(data.status === 'ok')
       window.location.href = '/'
   }
 
@@ -39,21 +39,17 @@ function Register() {
       <h1>Registration</h1>
       <form onSubmit={registerUser}>
         <input type="text" placeholder="Firstname" className='form-control'
-          onChange={(e) => setName(e.target.value)} value={name}>
-        </input>
+          onChange={(e) => setName(e.target.value)} value={name} required/>
         <br></br>
         <input type="email" placeholder="email" className='form-control'
-          onChange={(e) => setEmail(e.target.value)} value={email}>
-        </input>
+          onChange={(e) => setEmail(e.target.value)} value={email} required/>
         <br></br>
         <input type="password" placeholder="password" className='form-control'
-          onChange={(e) => setPassword(e.target.value)} value={password}>
-        </input>
+          onChange={(e) => setPassword(e.target.value)} value={password} required/>
         <div className='reg1'>
-        <Link to='/'><a >Login here</a></Link>
+        <Link to='/'>Login here</Link>
         </div>
-        <input type="submit"  className='btn btn-primary' value="Register" placeholder="Register">
-        </input>
+        <input type="submit"  className='btn btn-primary' value="Register" placeholder="Register" required/>
       </form>
       </div>
     </div>

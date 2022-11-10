@@ -14,6 +14,7 @@ const DataProvider = ({children})=>{
     const [company, setCompany] = useState('')
     const [skills, setSkills] = useState([])
     const [work, setWork] = useState([])
+    
     return(
         <dataContext.Provider value={[name, setName, email, setEmail,
             password, setPassword, hobbies, setHobbies, tShirt, settShirt,

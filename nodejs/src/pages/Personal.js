@@ -1,115 +1,122 @@
-import React, { useContext, useState } from 'react'
-import Home from './Home'
+import React, { useContext, useEffect, useState } from 'react'
 import '../App.css'
 import '../../../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import { dataContext } from '../nodeContext';
-import { Link } from 'react-router-dom'
 
 
 const Personal = () => {
   const [food, setFood] = useState('')
-
+  const [isAlertVisible, setIsAlertVisible] = useState(false);
   const [hobbies, setHobbies, tShirt, settShirt,
     height, setHeight, weight, setWeight] = useContext(dataContext);
 
+  useEffect(() => {
+    let x = JSON.parse(localStorage.getItem('personaldata'))
+    setHobbies(x.hobbies)
+    settShirt(x.tShirt);
+    setHeight(x.height);
+    setWeight(x.weight);
+  }, [setHobbies, settShirt, setHeight, setWeight])
 
-  const changeHandler = (e) => {
-    setHobbies([...hobbies, food]);
+
+  const changeHandler = () => {
+    if (food !== '' && !hobbies.some(ele => ele.toLowerCase() === food.toLowerCase()))
+      setHobbies([...hobbies, food]);
+    setFood('')
   }
 
+  const handleButtonClick = () => {
+    setIsAlertVisible(true);
+    setTimeout(() => {
+      setIsAlertVisible(false);
+      window.location.href='/Home'
+    },500);
+  }
 
   async function personal_data(e) {
     const items = JSON.parse(localStorage.getItem('qwert'))
     const email = items.email
     const token = items.token
     e.preventDefault()
-    let body={token,
-      email,
-      hobbies,
-      tShirt,
-      weight,
-      height}
-    Object.keys(body).forEach(key =>{console.log('asd') 
-    if(body[key]===''){delete body[key]}})
 
     const response = await fetch('http://localhost:6969/api/personadata', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify(body),
+      body: JSON.stringify({
+        token,
+        email,
+        hobbies,
+        tShirt,
+        weight,
+        height
+      }),
     })
     const data = await response.json()
-    console.log(data)
     if (data.status === 'ok')
-      alert("Updated Data")
+      handleButtonClick()
     else
+    {
       alert("Error")
-    window.location.href = '/Home'
+      window.location.href = '/Home'
+    }
+      
+    
   }
 
-  const renderhobbies = hobbies && hobbies.map(hobbie =>{
-    return(
-      <h5>{hobbie}</h5>
-    )
-  })
-
   return (
-
     <div className='main'>
-      <div className='navbar'>
-        <h1>Preference</h1>
-        <ul className='nav'>
-          <li className='nav-item'><a className="nav-link "><Link to='/home'>Home</Link></a></li>
-          <li className='nav-item'><a className="nav-link "><Link to='/personal'>Personal</Link></a></li>
-          <li className='nav-item'><a className="nav-link "><Link to='/professional'>Professional</Link></a></li>
-          <li className='nav-item'><a className="nav-link ">Hi,{JSON.parse(localStorage.getItem('qwert')).name}</a></li> &nbsp;&nbsp;&nbsp;&nbsp;
-          <li className='nav-item'><button className='btn btn-danger' onClick={(e) => {
-            localStorage.clear()
-            window.location.href = '/'
-          }}>Logout</button></li>
-        </ul>
-
-      </div>
+      {isAlertVisible && (
+        <div className='alert-container'>
+          <div className='alert-inner'>Updated Data Successfully</div>
+        </div>)}
       <div className='data'>
         <h1>Personal Preference</h1>
-        <form onSubmit={personal_data}>
+        <form>
           <table>
+            <thead>
+              <tr>
+                <td>
+                  <span>
+                    <input type="text" className="form-control" placeholder="Enter TShirt Size" value={tShirt} onChange={(e) => settShirt(e.target.value)} required />
+                  </span>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <span>
+                    <input type="text" className="form-control" placeholder="Enter Height" value={height} onChange={(e) => setHeight(e.target.value)} required />
+                  </span>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <span>
+                    <input type="text" className="form-control" placeholder="Enter Weight" value={weight} onChange={(e) => setWeight(e.target.value)} required />
+                  </span>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <span>
+                    <input type="text" className="form-control" placeholder="Enter Food Habits" value={food} onChange={(e) => setFood(e.target.value)} />
+                    <button type="button" className="btn btn-primary" onClick={changeHandler}>Add</button>
+                  </span>
+                  {hobbies && hobbies.map((h, idx) => (
+                    <span key={idx}>
+                      <strong>{h}</strong>
+                      &nbsp;&nbsp;
+                      <button type="button" className="btn btn-danger" onClick={() => { setHobbies(hobbies.filter(x => x !== h)) }}>x</button>
+                    </span>
+                  ))}
+                </td>
+              </tr>
+            </thead>
 
-            <tr>
-              <td>
-                <span>
-                  <input type="text" class="form-control" placeholder="Enter TShirt Size" value={tShirt} onChange={(e) => settShirt(e.target.value)} />
-
-                </span>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <span>
-                  <input type="text" class="form-control" placeholder="Enter Height" value={height} onChange={(e) => setHeight(e.target.value)} />
-                </span>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <span>
-                  <input type="text" class="form-control" placeholder="Enter Weight" value={weight} onChange={(e) => setWeight(e.target.value)} />
-                </span>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <span>
-                  <input type="text" class="form-control" placeholder="Enter Food Habits" value={food} onChange={(e) => setFood(e.target.value)} />
-                  <button type="button" class="btn btn-primary" onClick={changeHandler}>Add</button>
-                </span>
-                {renderhobbies}
-              </td>
-            </tr>
           </table>
           <div className='btnn'>
-            <input type='submit' className='btn btn-success' />
+            <button type='submit' className='btn btn-success' onClick={personal_data}>Submit</button>
           </div>
         </form>
       </div>
