@@ -1,35 +1,33 @@
 import React from "react";
 import Register from "./pages/register";
 import Login from "./pages/login";
-
-import Home from "./pages/Home";
 import Personal from "./pages/Personal";
 import Professional from "./pages/Professional";
-import {BrowserRouter, Link, Routes ,Route} from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import DataProvider from "./nodeContext"
 import Admin from './admin/admin'
+import Nav from "./Nav";
+import Home from "./pages/Home";
+import Error from "./pages/Error";
 
-function App(){
+function App() {
+    const paths=["/","/register","/Home","/personal","/Professional"];
     return (
-    <>
-    <DataProvider>
-        {/* <Login></Login> */}
-        {/* <Admin></Admin> */}
-        <BrowserRouter>
-            {/* <Link to="/register">Registration</Link>
-            <Link to="/login">Login</Link> */}
-            <Routes>
-                <Route path="/register" element={<Register/>}></Route>
-                <Route path="/" element={<Login/>}></Route>
-                <Route path="/Home" element={<Home/>}></Route>
-                <Route path="/personal" element={<Personal/>}></Route>
-                <Route path="/Professional" element={<Professional/>}></Route>
-                <Route path ="/admin" element={<Admin/>}></Route>
-                
-            </Routes>
-        </BrowserRouter>
+        <DataProvider>
+            <BrowserRouter>
+                {(paths.includes(window.location.pathname) && window.location.pathname !== '/' && (<Nav />)) 
+                    || ( localStorage.getItem('qwert') && (<Nav />) )}
+                <Routes>
+                    <Route path="/register" element={<Register />}></Route>
+                    <Route path="/" element={(localStorage.getItem('qwert')===null)?(<Login />):(JSON.parse(localStorage.getItem('qwert')).name==="admin")?(<Admin />):(<Home />)}></Route>
+                    <Route path="/Home" element={(localStorage.getItem('qwert')===null)?(<Error/>):(JSON.parse(localStorage.getItem('qwert')).name!=="admin")?(<Home />):(<Error/>)}></Route>
+                    <Route path="/personal" element={(localStorage.getItem('qwert')===null)?(<Error/>):(<Personal />)}></Route>
+                    <Route path="/Professional" element={(localStorage.getItem('qwert')===null)?(<Error/>):(<Professional />)}></Route>
+                    <Route path="/admin" element={(localStorage.getItem('qwert')===null)?(<Error/>):(JSON.parse(localStorage.getItem('qwert')).name==="admin")?(<Admin />):(<Error/>)}></Route>
+                    <Route path="*" element={<Error />} />
+                </Routes>
+            </BrowserRouter>
         </DataProvider>
-    </>
     );
 }
 

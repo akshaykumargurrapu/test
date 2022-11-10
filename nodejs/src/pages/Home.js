@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
 import '../App.css'
-import Personal from './Personal'
-import Professional from './Professional'
+// import Personal from './Personal'
+// import Professional from './Professional'
 
 
 const Home = () => {
@@ -14,13 +13,10 @@ const Home = () => {
     const items = JSON.parse(localStorage.getItem('qwert'))
     const email = items.email
     const token = items.token
-  
 
     // e.preventDefault()
 
     const response = await fetch('http://localhost:6969/api/personaldatafetch', {
-
-      
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -31,7 +27,7 @@ const Home = () => {
       }),
     })
     const data = await response.json()
-    console.log(data)
+    // console.log(data)
     localStorage.setItem("personaldata", JSON.stringify(data.user))
     setUserper(JSON.parse(localStorage.getItem('personaldata')))
     // return data.user
@@ -55,7 +51,7 @@ const Home = () => {
       }),
     })
     const data = await response.json()
-    console.log(data)
+    // console.log(data)
     localStorage.setItem("professionaldata", JSON.stringify(data.user))
 
     setUserpro(JSON.parse(localStorage.getItem('professionaldata')))
@@ -71,27 +67,7 @@ const Home = () => {
 
   return (
     <div>
-      <div className='navbar'>
-        <h1>Preference</h1>
-        <ul className='nav'>
-          <li className='nav-item'><a className="nav-link "><Link to='/home'>Home</Link></a></li>
-          <li className='nav-item'><a className="nav-link "><Link to='/personal'>Personal</Link></a></li>
-          <li className='nav-item'><a className="nav-link "><Link to='/professional'>Professional</Link></a></li>
-          <li className='nav-item'><a className="nav-link ">Hi,{JSON.parse(localStorage.getItem('qwert')).name}</a></li>
-          <li className='nav-item'><button className='btn btn-danger' onClick={(e) => {
-            localStorage.clear()
-            window.location.href = '/'
-          }}>Logout</button></li>
-
-        </ul>
-
-      </div>
       <div className='datadiv'>
-        {/* <h1>sadgjhg</h1>
-        {
-          userper.weight
-        }
-        {  userpro.linkedin} */}
         <span>
           <div className='personal-div'>
             <h1>Personal Details</h1>
